@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART888 — Lucky Paper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300;0,600;0,900;1,300&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #f4efe4;
+            --paper-dark: #e8e0d0;
+            --ink: #1a1714;
+            --vermillion: #c23028;
+            --gold: #b8952e;
+            --sage: #7a8b6f;
+            --stone: #8c8578;
+            --faded: #c4bdb0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Crimson Pro', serif;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-seal {
+            width: 36px;
+            height: 36px;
+            background: var(--vermillion);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--paper);
+            font-family: 'Noto Serif Display', serif;
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            transform: rotate(2deg);
+        }
+
+        .brand-text {
+            font-family: 'Noto Serif Display', serif;
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-actions a {
+            text-decoration: none;
+            color: var(--stone);
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            transition: color 0.3s;
+        }
+
+        .nav-actions a:hover { color: var(--ink); }
+
+        .nav-actions .register-btn {
+            color: var(--paper);
+            background: var(--ink);
+            padding: 10px 28px;
+            transition: all 0.3s;
+        }
+
+        .nav-actions .register-btn:hover {
+            background: var(--vermillion);
+        }
+
+        .divider {
+            width: calc(100% - 120px);
+            margin: 0 auto;
+            height: 1px;
+            background: var(--faded);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 60px;
+            gap: 40px;
+            align-items: start;
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-main h1 {
+            font-family: 'Noto Serif Display', serif;
+            font-weight: 900;
+            font-size: clamp(4rem, 9vw, 7.5rem);
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+        }
+
+        .hero-main h1 .red {
+            color: var(--vermillion);
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            margin-top: 32px;
+            font-size: 1.15rem;
+            line-height: 1.85;
+            color: var(--stone);
+            max-width: 520px;
+            font-weight: 300;
+        }
+
+        .credit-badge {
+            margin-top: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid var(--faded);
+            padding: 20px 32px;
+            background: var(--paper-dark);
+        }
+
+        .credit-badge .seal {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--vermillion);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif Display', serif;
+            font-size: 0.6rem;
+            font-weight: 900;
+            color: var(--vermillion);
+        }
+
+        .credit-badge .credit-info .label {
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 2px;
+        }
+
+        .credit-badge .credit-info .value {
+            font-family: 'Noto Serif Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .hero-vertical {
+            writing-mode: vertical-rl;
+            font-size: 0.7rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--faded);
+            padding-top: 16px;
+            text-align: right;
+        }
+
+        .games-area {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 60px 100px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .game-tile {
+            padding: 56px 48px;
+            border: 1px solid var(--faded);
+            position: relative;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .game-tile:first-child { border-right: none; }
+
+        .game-tile:hover {
+            background: var(--paper-dark);
+        }
+
+        .game-tile .number {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-family: 'Noto Serif Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--faded);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .game-visual-zen {
+            margin-bottom: 40px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .zen-dice {
+            display: flex;
+            gap: 12px;
+        }
+
+        .zen-die {
+            width: 44px;
+            height: 44px;
+            border: 1.5px solid var(--ink);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .game-tile:hover .zen-die {
+            border-color: var(--vermillion);
+            color: var(--vermillion);
+        }
+
+        .zen-coin {
+            width: 60px;
+            height: 60px;
+            border: 1.5px solid var(--ink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .zen-coin::after {
+            content: '';
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--faded);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .zen-coin span {
+            font-family: 'Noto Serif Display', serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            z-index: 1;
+        }
+
+        .game-tile:hover .zen-coin {
+            border-color: var(--vermillion);
+        }
+
+        .game-tile h2 {
+            font-family: 'Noto Serif Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .game-tile .game-rule {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 20px;
+        }
+
+        .game-tile p {
+            color: var(--stone);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 36px;
+            font-weight: 300;
+        }
+
+        .pill-choices {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .pill {
+            padding: 10px 24px;
+            border: 1px solid var(--ink);
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.95rem;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.25s;
+            color: var(--ink);
+        }
+
+        .pill:hover {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        .enter-btn {
+            padding: 14px 32px;
+            background: var(--vermillion);
+            color: var(--paper);
+            border: none;
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .enter-btn:hover {
+            background: var(--ink);
+        }
+
+        .bottom-strip {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        .bottom-strip .inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-top: 1px solid var(--faded);
+        }
+
+        .bottom-strip p {
+            font-size: 0.75rem;
+            color: var(--stone);
+            letter-spacing: 0.1em;
+        }
+
+        .stamp {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--vermillion);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif Display', serif;
+            font-size: 0.55rem;
+            font-weight: 900;
+            color: var(--vermillion);
+            transform: rotate(-15deg);
+            opacity: 0.5;
+        }
+
+        @media (max-width: 800px) {
+            .hero { grid-template-columns: 1fr; padding: 40px 24px; }
+            .hero-vertical { display: none; }
+            .games-area { grid-template-columns: 1fr; padding: 0 24px 60px; }
+            .game-tile:first-child { border-right: 1px solid var(--faded); border-bottom: none; }
+            nav { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="brand">
+            <div class="brand-seal">888</div>
+            <div class="brand-text">Art 888</div>
+        </div>
+        <div class="nav-actions">
+            <a href="#">Log in</a>
+            <a href="#" class="register-btn">Register</a>
+        </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <section class="hero">
+        <div class="hero-main">
+            <h1>The Art<br>of <span class="red">Chance</span></h1>
+            <p class="hero-description">
+                Two games distilled to their essence. The roll of dice, the turn of a coin. Begin with one thousand credits and discover where fortune leads.
+            </p>
+            <div class="credit-badge">
+                <div class="seal">888</div>
+                <div class="credit-info">
+                    <div class="label">Opening Balance</div>
+                    <div class="value">1,000</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-vertical">
+            Fortune &bull; Chance &bull; Art888 &bull; Two Games &bull; One Thousand Credits
+        </div>
+    </section>
+
+    <section class="games-area">
+        <div class="game-tile">
+            <div class="number">I</div>
+            <div class="game-visual-zen">
+                <div class="zen-dice">
+                    <div class="zen-die">&#9856;</div>
+                    <div class="zen-die">&#9861;</div>
+                </div>
+            </div>
+            <h2>Guess the Dice</h2>
+            <div class="game-rule">Sum of two dice &mdash; predict the outcome</div>
+            <p>Two dice are cast. Will their sum rest at seven or below, or will it climb above? Place your wager and see.</p>
+            <div class="pill-choices">
+                <button class="pill">&le; 7</button>
+                <button class="pill">&gt; 7</button>
+            </div>
+            <button class="enter-btn">Play</button>
+        </div>
+
+        <div class="game-tile">
+            <div class="number">II</div>
+            <div class="game-visual-zen">
+                <div class="zen-coin"><span>&#9673;</span></div>
+            </div>
+            <h2>Coin Toss</h2>
+            <div class="game-rule">Heads or tails &mdash; call your side</div>
+            <p>The simplest gamble. One coin, two faces. Choose wisely, for the margin between fortune and loss is paper-thin.</p>
+            <div class="pill-choices">
+                <button class="pill">Heads</button>
+                <button class="pill">Tails</button>
+            </div>
+            <button class="enter-btn">Play</button>
+        </div>
+    </section>
+
+    <div class="bottom-strip">
+        <div class="inner">
+            <p>ART888 &mdash; All credits are fictional. Play responsibly.</p>
+            <div class="stamp">ART</div>
+        </div>
+    </div>
+</body>
+</html>

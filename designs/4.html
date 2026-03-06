@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART888 — Brutalist Bet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0ede5;
+            --black: #000000;
+            --acid: #c8ff00;
+            --red: #ff1a1a;
+            --dim: #999;
+            --border: #000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--black);
+            font-family: 'IBM Plex Mono', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .ticker {
+            background: var(--black);
+            color: var(--acid);
+            padding: 10px 0;
+            overflow: hidden;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+        }
+
+        .ticker-inner {
+            display: flex;
+            white-space: nowrap;
+            animation: tickerScroll 20s linear infinite;
+        }
+
+        .ticker-inner span {
+            padding: 0 40px;
+        }
+
+        @keyframes tickerScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            border-bottom: 3px solid var(--black);
+        }
+
+        .logo-brut {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            line-height: 1;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-brut .accent { color: var(--red); }
+
+        .nav-btns {
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-btns a {
+            text-decoration: none;
+            color: var(--black);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border: 3px solid var(--black);
+            transition: all 0.15s;
+        }
+
+        .nav-btns a:first-child { border-right: none; }
+
+        .nav-btns a:hover {
+            background: var(--black);
+            color: var(--bg);
+        }
+
+        .nav-btns a.primary {
+            background: var(--black);
+            color: var(--acid);
+        }
+
+        .nav-btns a.primary:hover {
+            background: var(--red);
+            color: var(--black);
+            border-color: var(--red);
+        }
+
+        .hero-brut {
+            padding: 48px 32px 32px;
+            border-bottom: 3px solid var(--black);
+        }
+
+        .hero-brut h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(6rem, 18vw, 16rem);
+            line-height: 0.85;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .hero-brut h1 .outline {
+            -webkit-text-stroke: 3px var(--black);
+            color: transparent;
+        }
+
+        .hero-brut h1 .red { color: var(--red); }
+
+        .hero-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--dim);
+        }
+
+        .hero-meta .desc {
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: var(--dim);
+            max-width: 400px;
+            font-weight: 400;
+        }
+
+        .credit-block {
+            text-align: right;
+        }
+
+        .credit-block .label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        .credit-block .num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            line-height: 1;
+            color: var(--black);
+        }
+
+        .credit-block .unit {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .games-brut {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .game-brut {
+            padding: 48px 32px;
+            border-bottom: 3px solid var(--black);
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .game-brut:first-child {
+            border-right: 3px solid var(--black);
+        }
+
+        .game-brut:hover {
+            background: var(--acid);
+        }
+
+        .game-brut .tag {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border: 2px solid var(--black);
+            margin-bottom: 24px;
+        }
+
+        .game-brut .big-icon {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 6rem;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .game-brut:first-child .big-icon { color: var(--black); }
+        .game-brut:nth-child(2) .big-icon { color: var(--red); }
+
+        .game-brut h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            line-height: 1;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .game-brut p {
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 32px;
+            max-width: 360px;
+        }
+
+        .brut-choices {
+            display: flex;
+            gap: 0;
+            margin-bottom: 16px;
+        }
+
+        .brut-choice {
+            flex: 1;
+            padding: 16px;
+            border: 3px solid var(--black);
+            background: transparent;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            color: var(--black);
+        }
+
+        .brut-choice:first-child { border-right: none; }
+
+        .brut-choice:hover {
+            background: var(--black);
+            color: var(--acid);
+        }
+
+        .brut-play {
+            width: 100%;
+            padding: 18px;
+            background: var(--black);
+            color: var(--acid);
+            border: 3px solid var(--black);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .brut-play:hover {
+            background: var(--red);
+            color: var(--black);
+            border-color: var(--red);
+        }
+
+        .bottom-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+        }
+
+        .bottom-bar p {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--dim);
+            text-transform: uppercase;
+        }
+
+        .bottom-bar .stamp-brut {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            border: 2px solid var(--black);
+            padding: 4px 12px;
+            transform: rotate(-5deg);
+        }
+
+        @media (max-width: 800px) {
+            .games-brut { grid-template-columns: 1fr; }
+            .game-brut:first-child { border-right: none; }
+            .hero-meta { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .credit-block { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ticker">
+        <div class="ticker-inner">
+            <span>ART888</span>
+            <span>DICE GAME</span>
+            <span>COIN FLIP</span>
+            <span>1000 FREE CREDITS</span>
+            <span>PLAY NOW</span>
+            <span>GUESS &le;7 OR &gt;7</span>
+            <span>HEADS OR TAILS</span>
+            <span>ART888</span>
+            <span>DICE GAME</span>
+            <span>COIN FLIP</span>
+            <span>1000 FREE CREDITS</span>
+            <span>PLAY NOW</span>
+            <span>GUESS &le;7 OR &gt;7</span>
+            <span>HEADS OR TAILS</span>
+        </div>
+    </div>
+
+    <nav>
+        <div class="logo-brut">ART<span class="accent">888</span></div>
+        <div class="nav-btns">
+            <a href="#">Log In</a>
+            <a href="#" class="primary">Register</a>
+        </div>
+    </nav>
+
+    <section class="hero-brut">
+        <h1>
+            <span class="outline">ROLL</span><br>
+            <span class="red">THE</span> DICE<br>
+            FLIP <span class="outline">THE</span><br>
+            <span class="red">COIN</span>
+        </h1>
+        <div class="hero-meta">
+            <div class="desc">
+                Two classic games of chance. Pure probability. No tricks, no gimmicks. You start with credits. You make a choice. You win or you don't.
+            </div>
+            <div class="credit-block">
+                <div class="label">Starting Credits</div>
+                <div class="num">1000</div>
+                <div class="unit">CREDITS</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="games-brut">
+        <div class="game-brut">
+            <div class="tag">Game 01</div>
+            <div class="big-icon">&#9858;&#9860;</div>
+            <h2>Dice Roll</h2>
+            <p>Two dice. Sum ranges 2&ndash;12. Will it be 7 or under? Or above? Decide and wager.</p>
+            <div class="brut-choices">
+                <button class="brut-choice">&le; 7</button>
+                <button class="brut-choice">&gt; 7</button>
+            </div>
+            <button class="brut-play">ROLL NOW &rarr;</button>
+        </div>
+
+        <div class="game-brut">
+            <div class="tag">Game 02</div>
+            <div class="big-icon">&oplus;</div>
+            <h2>Coin Flip</h2>
+            <p>One coin. Two sides. 50/50 odds. Pick your side and let the coin decide.</p>
+            <div class="brut-choices">
+                <button class="brut-choice">HEADS</button>
+                <button class="brut-choice">TAILS</button>
+            </div>
+            <button class="brut-play">FLIP NOW &rarr;</button>
+        </div>
+    </section>
+
+    <div class="bottom-bar">
+        <p>ART888 &mdash; All credits are simulated. Play responsibly.</p>
+        <div class="stamp-brut">ART888</div>
+    </div>
+</body>
+</html>

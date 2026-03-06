@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART888 — Tropical High Roller</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #ff6b6b;
+            --hot-pink: #ee5a9a;
+            --peach: #ffb88c;
+            --sand: #fef3e2;
+            --teal: #00c9b7;
+            --deep-teal: #00a89d;
+            --navy: #1a1a3e;
+            --purple: #6c5ce7;
+            --lavender: #a29bfe;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(255, 107, 107, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(108, 92, 231, 0.35) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 201, 183, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 10% 70%, rgba(238, 90, 154, 0.2) 0%, transparent 40%),
+                linear-gradient(180deg, #1a1a3e 0%, #0f0f2e 100%);
+        }
+
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px;
+        }
+
+        .logo-tropical {
+            font-family: 'Righteous', cursive;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--coral), var(--peach));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-tropical {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-tropical a {
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .nav-tropical .login-link {
+            color: rgba(255,255,255,0.7);
+            border: 1.5px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-tropical .login-link:hover {
+            border-color: rgba(255,255,255,0.5);
+            color: var(--white);
+        }
+
+        .nav-tropical .signup-link {
+            color: var(--navy);
+            background: linear-gradient(135deg, var(--teal), var(--deep-teal));
+            border: none;
+        }
+
+        .nav-tropical .signup-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 201, 183, 0.35);
+        }
+
+        .hero-tropical {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 80px 40px 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 8px 24px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--peach);
+            margin-bottom: 32px;
+        }
+
+        .hero-tropical h1 {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(3.5rem, 10vw, 7.5rem);
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .hero-tropical h1 .grad1 {
+            background: linear-gradient(135deg, var(--coral), var(--hot-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tropical h1 .grad2 {
+            background: linear-gradient(135deg, var(--peach), var(--coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tropical h1 .teal-text {
+            background: linear-gradient(135deg, var(--teal), var(--lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.5);
+            max-width: 500px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+        }
+
+        .credit-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 60px;
+            padding: 12px 12px 12px 32px;
+            margin-bottom: 60px;
+        }
+
+        .credit-pill .info {
+            text-align: left;
+        }
+
+        .credit-pill .info .label {
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .credit-pill .info .val {
+            font-family: 'Righteous', cursive;
+            font-size: 1.6rem;
+            color: var(--white);
+        }
+
+        .credit-pill .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Righteous', cursive;
+            font-size: 0.9rem;
+            color: var(--white);
+        }
+
+        .games-section {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 0 40px 80px;
+            flex-wrap: wrap;
+        }
+
+        .game-card-tropical {
+            width: 400px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 40px 32px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card-tropical::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .game-card-tropical:first-child::before {
+            background: linear-gradient(90deg, var(--coral), var(--peach));
+        }
+
+        .game-card-tropical:nth-child(2)::before {
+            background: linear-gradient(90deg, var(--teal), var(--lavender));
+        }
+
+        .game-card-tropical:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .game-icon-wrap {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            font-size: 2.2rem;
+        }
+
+        .game-card-tropical:first-child .game-icon-wrap {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 184, 140, 0.15));
+        }
+
+        .game-card-tropical:nth-child(2) .game-icon-wrap {
+            background: linear-gradient(135deg, rgba(0, 201, 183, 0.2), rgba(162, 155, 254, 0.15));
+        }
+
+        .game-card-tropical h2 {
+            font-family: 'Righteous', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .game-card-tropical .game-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .game-card-tropical:first-child .game-tag { color: var(--coral); }
+        .game-card-tropical:nth-child(2) .game-tag { color: var(--teal); }
+
+        .game-card-tropical p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+            line-height: 1.75;
+            margin-bottom: 28px;
+            font-weight: 300;
+        }
+
+        .tropical-choices {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .tropical-choice {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.03);
+            color: var(--white);
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .game-card-tropical:first-child .tropical-choice:hover {
+            background: rgba(255, 107, 107, 0.15);
+            border-color: var(--coral);
+        }
+
+        .game-card-tropical:nth-child(2) .tropical-choice:hover {
+            background: rgba(0, 201, 183, 0.15);
+            border-color: var(--teal);
+        }
+
+        .tropical-play {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--white);
+        }
+
+        .game-card-tropical:first-child .tropical-play {
+            background: linear-gradient(135deg, var(--coral), var(--hot-pink));
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.25);
+        }
+
+        .game-card-tropical:first-child .tropical-play:hover {
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .game-card-tropical:nth-child(2) .tropical-play {
+            background: linear-gradient(135deg, var(--teal), var(--purple));
+            box-shadow: 0 4px 20px rgba(0, 201, 183, 0.25);
+        }
+
+        .game-card-tropical:nth-child(2) .tropical-play:hover {
+            box-shadow: 0 8px 30px rgba(0, 201, 183, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 1;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 107, 107, 0.15);
+            top: 60%;
+            left: 5%;
+        }
+
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            background: rgba(108, 92, 231, 0.12);
+            top: 20%;
+            right: 8%;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 180px;
+            height: 180px;
+            background: rgba(0, 201, 183, 0.1);
+            bottom: 10%;
+            right: 30%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(20px, -30px) scale(1.05); }
+            66% { transform: translate(-15px, 20px) scale(0.95); }
+        }
+
+        footer {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 32px;
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 860px) {
+            .games-section { flex-direction: column; align-items: center; }
+            .game-card-tropical { width: 100%; max-width: 400px; }
+            nav { padding: 20px; }
+            .hero-tropical { padding: 40px 20px 20px; }
+            .games-section { padding: 0 20px 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-mesh"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <nav>
+        <div class="logo-tropical">art888</div>
+        <div class="nav-tropical">
+            <a href="#" class="login-link">Log in</a>
+            <a href="#" class="signup-link">Sign up</a>
+        </div>
+    </nav>
+
+    <section class="hero-tropical">
+        <div class="hero-badge">&#10022; Free 1,000 Credits to Play</div>
+        <h1>
+            <span class="grad1">Roll Lucky.</span><br>
+            <span class="grad2">Flip Bold.</span><br>
+            <span class="teal-text">Win Big.</span>
+        </h1>
+        <p class="hero-desc">
+            Two games, pure chance, zero risk. Start with 1,000 free credits and ride the wave of fortune.
+        </p>
+        <div class="credit-pill">
+            <div class="info">
+                <div class="label">Your Balance</div>
+                <div class="val">1,000</div>
+            </div>
+            <div class="icon-circle">CR</div>
+        </div>
+    </section>
+
+    <section class="games-section">
+        <div class="game-card-tropical">
+            <div class="game-icon-wrap">&#127922;</div>
+            <div class="game-tag">Game One</div>
+            <h2>Guess the Dice</h2>
+            <p>Two dice roll — will the sum be 7 or under, or climb above? Pick a side and place your bet.</p>
+            <div class="tropical-choices">
+                <button class="tropical-choice">&le; 7</button>
+                <button class="tropical-choice">&gt; 7</button>
+            </div>
+            <button class="tropical-play">Roll the Dice</button>
+        </div>
+
+        <div class="game-card-tropical">
+            <div class="game-icon-wrap">&#129689;</div>
+            <div class="game-tag">Game Two</div>
+            <h2>Coin Flip</h2>
+            <p>Classic heads or tails. 50/50 odds, pure adrenaline. Pick your side and let it fly.</p>
+            <div class="tropical-choices">
+                <button class="tropical-choice">Heads</button>
+                <button class="tropical-choice">Tails</button>
+            </div>
+            <button class="tropical-play">Flip the Coin</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>art888 &mdash; All credits are fictional. Play for fun.</p>
+    </footer>
+</body>
+</html>
