@@ -60,6 +60,59 @@
                 z-index: 0;
             }
 
+            .back-link {
+                position: fixed;
+                top: 28px;
+                left: 32px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                text-decoration: none;
+                color: var(--smoke);
+                transition: color 0.3s;
+                z-index: 50;
+            }
+
+            .back-link:hover { color: var(--gold); }
+
+            .back-link .back-arrow {
+                width: 32px;
+                height: 32px;
+                border: 1px solid rgba(201, 168, 76, 0.2);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s;
+            }
+
+            .back-link:hover .back-arrow {
+                border-color: var(--gold);
+                background: rgba(201, 168, 76, 0.06);
+            }
+
+            .back-arrow svg {
+                width: 14px;
+                height: 14px;
+                stroke: currentColor;
+                fill: none;
+                stroke-width: 1.5;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                transition: transform 0.3s;
+            }
+
+            .back-link:hover .back-arrow svg {
+                transform: translateX(-2px);
+            }
+
+            .back-label {
+                font-size: 0.7rem;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                font-weight: 500;
+            }
+
             .auth-container {
                 position: relative;
                 z-index: 10;
@@ -315,6 +368,11 @@
     <body>
         <div class="floating-accent a1"></div>
         <div class="floating-accent a2"></div>
+
+        <a href="{{ route('home') }}" class="back-link">
+            <div class="back-arrow"><svg viewBox="0 0 24 24"><path d="M19 12H5M5 12l6-6M5 12l6 6"/></svg></div>
+            <span class="back-label">Lobby</span>
+        </a>
 
         <div class="auth-container">
             <div class="auth-brand">

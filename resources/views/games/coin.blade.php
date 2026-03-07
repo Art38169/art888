@@ -64,6 +64,56 @@
             padding: 28px 48px;
         }
 
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--smoke);
+            transition: color 0.3s;
+        }
+
+        .back-link:hover { color: var(--gold); }
+
+        .back-link .back-arrow {
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .back-link:hover .back-arrow {
+            border-color: var(--gold);
+            background: rgba(201, 168, 76, 0.06);
+        }
+
+        .back-arrow svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.3s;
+        }
+
+        .back-link:hover .back-arrow svg {
+            transform: translateX(-2px);
+        }
+
+        .back-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
         .nav-brand {
             font-family: 'Playfair Display', serif;
             font-size: 1.1rem;
@@ -598,6 +648,10 @@
     <div class="floating-accent a2"></div>
 
     <nav>
+        <a href="{{ route('home') }}" class="back-link">
+            <div class="back-arrow"><svg viewBox="0 0 24 24"><path d="M19 12H5M5 12l6-6M5 12l6 6"/></svg></div>
+            <span class="back-label">Lobby</span>
+        </a>
         <a href="{{ route('home') }}" class="nav-brand"><span>ART</span>888</a>
         <div class="nav-right">
             <div class="credit-chip">
@@ -606,7 +660,6 @@
                     <div class="credit-val" id="credits">1,000</div>
                 </div>
             </div>
-            <a href="{{ route('home') }}" class="nav-link">Lobby</a>
         </div>
     </nav>
 
