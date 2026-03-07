@@ -89,10 +89,11 @@
             }
 
             .auth-card {
-                background: var(--card);
-                border: 1px solid rgba(201, 168, 76, 0.1);
+                background: #1c1924;
+                border: 1px solid rgba(201, 168, 76, 0.18);
                 padding: 48px 40px;
                 position: relative;
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
             }
 
             .auth-card::before {
@@ -140,8 +141,8 @@
             .form-input {
                 width: 100%;
                 padding: 14px 16px;
-                background: rgba(255, 255, 255, 0.03);
-                border: 1px solid rgba(201, 168, 76, 0.12);
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(201, 168, 76, 0.18);
                 color: var(--cream);
                 font-family: 'Cormorant Garamond', serif;
                 font-size: 1.05rem;
