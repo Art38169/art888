@@ -495,7 +495,7 @@
                 <div class="game-option">Heads</div>
                 <div class="game-option">Tails</div>
             </div>
-            <button class="play-btn">Flip the Coin</button>
+            <a href="{{ route('games.coin') }}" class="play-btn" style="text-align:center;text-decoration:none;">Flip the Coin</a>
         </div>
     </section>
 
