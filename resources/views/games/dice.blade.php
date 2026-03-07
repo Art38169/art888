@@ -734,6 +734,14 @@
         let selectedChoice = null;
         let isRolling = false;
 
+        (function() {
+            const pick = new URLSearchParams(window.location.search).get('pick');
+            if (pick) {
+                const btn = document.querySelector(`.choice-btn[data-choice="${pick}"]`);
+                if (btn) selectChoice(btn);
+            }
+        })();
+
         function updateCredits() {
             document.getElementById('credits').textContent = credits.toLocaleString();
         }

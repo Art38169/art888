@@ -332,6 +332,7 @@
             flex: 1;
             padding: 14px;
             text-align: center;
+            text-decoration: none;
             background: rgba(201, 168, 76, 0.05);
             border: 1px solid rgba(201, 168, 76, 0.12);
             color: var(--gold);
@@ -477,9 +478,9 @@
             <h2>Guess the Dice</h2>
             <p>Two dice cast into fate. Will the sum fall below seven, land exactly on it, or dare you wager it climbs higher?</p>
             <div class="game-options">
-                <div class="game-option">&lt; 7</div>
-                <div class="game-option">7</div>
-                <div class="game-option">&gt; 7</div>
+                <a href="{{ route('games.dice', ['pick' => 'under']) }}" class="game-option">&lt; 7</a>
+                <a href="{{ route('games.dice', ['pick' => 'exact']) }}" class="game-option">= 7</a>
+                <a href="{{ route('games.dice', ['pick' => 'over']) }}" class="game-option">&gt; 7</a>
             </div>
             <a href="{{ route('games.dice') }}" class="play-btn" style="text-align:center;text-decoration:none;">Enter the Table</a>
         </div>
@@ -492,8 +493,8 @@
             <h2>Coin of Fate</h2>
             <p>A single coin, two faces, one truth. Call it in the air and claim your winnings&mdash;or watch them vanish.</p>
             <div class="game-options">
-                <div class="game-option">Heads</div>
-                <div class="game-option">Tails</div>
+                <a href="{{ route('games.coin', ['pick' => 'heads']) }}" class="game-option">Heads</a>
+                <a href="{{ route('games.coin', ['pick' => 'tails']) }}" class="game-option">Tails</a>
             </div>
             <a href="{{ route('games.coin') }}" class="play-btn" style="text-align:center;text-decoration:none;">Flip the Coin</a>
         </div>
