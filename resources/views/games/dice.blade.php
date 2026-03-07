@@ -735,6 +735,9 @@
         let isRolling = false;
 
         (function() {
+            showDie(document.getElementById('die1'), 3);
+            showDie(document.getElementById('die2'), 4);
+
             const pick = new URLSearchParams(window.location.search).get('pick');
             if (pick) {
                 const btn = document.querySelector(`.choice-btn[data-choice="${pick}"]`);
