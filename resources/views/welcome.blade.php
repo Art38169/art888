@@ -481,7 +481,7 @@
                 <div class="game-option">7</div>
                 <div class="game-option">&gt; 7</div>
             </div>
-            <button class="play-btn">Enter the Table</button>
+            <a href="{{ route('games.dice') }}" class="play-btn" style="text-align:center;text-decoration:none;">Enter the Table</a>
         </div>
 
         <div class="game-card">
