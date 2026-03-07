@@ -16,9 +16,9 @@
                 --card-hover: #1a1820;
                 --gold: #c9a84c;
                 --gold-bright: #e8c85a;
-                --gold-dim: #8b7332;
+                --gold-dim: #a08840;
                 --cream: #f5e6c8;
-                --smoke: #6b6575;
+                --smoke: #9e95a8;
                 --wine: #5c1a2a;
                 --error: #e54545;
             }

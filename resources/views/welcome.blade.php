@@ -16,9 +16,9 @@
             --card: #14121a;
             --gold: #c9a84c;
             --gold-bright: #e8c85a;
-            --gold-dim: #8b7332;
+            --gold-dim: #a08840;
             --cream: #f5e6c8;
-            --smoke: #6b6575;
+            --smoke: #9e95a8;
             --wine: #5c1a2a;
         }
 
@@ -101,7 +101,7 @@
             font-weight: 500;
         }
 
-        .nav-links a:hover { color: var(--cream); }
+        .nav-links a:hover { color: #fff; }
 
         .nav-links .btn-register {
             color: var(--black);
@@ -162,10 +162,10 @@
 
         .hero-tagline {
             font-size: 1.15rem;
-            color: var(--smoke);
+            color: #b5adc0;
             max-width: 480px;
             line-height: 1.7;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 48px;
         }
 
@@ -316,11 +316,11 @@
         }
 
         .game-card p {
-            color: var(--smoke);
+            color: #b5adc0;
             font-size: 1.05rem;
             line-height: 1.7;
             margin-bottom: 36px;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .game-options {

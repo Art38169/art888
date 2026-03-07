@@ -14,9 +14,9 @@
             --card-light: #1c1924;
             --gold: #c9a84c;
             --gold-bright: #e8c85a;
-            --gold-dim: #8b7332;
+            --gold-dim: #a08840;
             --cream: #f5e6c8;
-            --smoke: #6b6575;
+            --smoke: #9e95a8;
             --wine: #5c1a2a;
             --green: #4a9e6e;
             --red: #c94040;
@@ -207,9 +207,9 @@
         }
 
         .game-header p {
-            color: var(--smoke);
+            color: #b5adc0;
             font-size: 1.05rem;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* --- Coin --- */
