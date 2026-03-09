@@ -456,7 +456,7 @@
             <div>
                 <div class="label">Starting Balance</div>
                 <div style="display:flex;align-items:baseline;gap:10px;">
-                    <div class="amount">1,000</div>
+                    <div class="amount">@auth{{ number_format(auth()->user()->credits) }}@else 1,000 @endauth</div>
                     <div class="currency">CREDITS</div>
                 </div>
             </div>
