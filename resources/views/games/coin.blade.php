@@ -699,11 +699,11 @@
             <div class="bet-label">Call It</div>
             <div class="choice-group">
                 <button class="choice-btn" data-choice="heads" onclick="selectChoice(this)">
-                    H
+                    H <span style="opacity:0.5;">(&times;2)</span>
                     <span class="choice-sub">Heads</span>
                 </button>
                 <button class="choice-btn" data-choice="tails" onclick="selectChoice(this)">
-                    T
+                    T <span style="opacity:0.5;">(&times;2)</span>
                     <span class="choice-sub">Tails</span>
                 </button>
             </div>

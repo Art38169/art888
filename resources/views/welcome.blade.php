@@ -486,9 +486,9 @@
             <h2>Guess the Dice</h2>
             <p>Two dice cast into fate. Will the sum fall below seven, land exactly on it, or dare you wager it climbs higher?</p>
             <div class="game-options">
-                <a href="{{ route('games.dice', ['pick' => 'under']) }}" class="game-option">&lt; 7</a>
-                <a href="{{ route('games.dice', ['pick' => 'exact']) }}" class="game-option">= 7</a>
-                <a href="{{ route('games.dice', ['pick' => 'over']) }}" class="game-option">&gt; 7</a>
+                <a href="{{ route('games.dice', ['pick' => 'under']) }}" class="game-option">&lt; 7 <span style="opacity:0.45;">(&times;2)</span></a>
+                <a href="{{ route('games.dice', ['pick' => 'exact']) }}" class="game-option">= 7 <span style="opacity:0.45;">(&times;5)</span></a>
+                <a href="{{ route('games.dice', ['pick' => 'over']) }}" class="game-option">&gt; 7 <span style="opacity:0.45;">(&times;2)</span></a>
             </div>
             <a href="{{ route('games.dice') }}" class="play-btn" style="text-align:center;text-decoration:none;">Enter the Table</a>
         </div>
@@ -501,8 +501,8 @@
             <h2>Coin of Fate</h2>
             <p>A single coin, two faces, one truth. Call it in the air and claim your winnings&mdash;or watch them vanish.</p>
             <div class="game-options">
-                <a href="{{ route('games.coin', ['pick' => 'heads']) }}" class="game-option">Heads</a>
-                <a href="{{ route('games.coin', ['pick' => 'tails']) }}" class="game-option">Tails</a>
+                <a href="{{ route('games.coin', ['pick' => 'heads']) }}" class="game-option">Heads <span style="opacity:0.45;">(&times;2)</span></a>
+                <a href="{{ route('games.coin', ['pick' => 'tails']) }}" class="game-option">Tails <span style="opacity:0.45;">(&times;2)</span></a>
             </div>
             <a href="{{ route('games.coin') }}" class="play-btn" style="text-align:center;text-decoration:none;">Flip the Coin</a>
         </div>
