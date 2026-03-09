@@ -434,7 +434,7 @@
         <div class="nav-links">
             @if (Route::has('login'))
                 @auth
-                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <a href="{{ route('profile.edit') }}">{{ auth()->user()->name }}</a>
                 @else
                     <a href="{{ route('login') }}">Log in</a>
                     @if (Route::has('register'))
