@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DiceGame;
+use App\Models\Transaction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -54,6 +55,26 @@ class DiceGameController extends Controller
             'payout' => $payout,
             'credits_after' => $user->credits,
         ]);
+
+        Transaction::create([
+            'user_id' => $user->id,
+            'game_type' => DiceGame::class,
+            'game_id' => $game->id,
+            'type' => 'wager',
+            'amount' => -$wager,
+            'balance_after' => $user->credits + ($won ? -$payout + $wager : 0),
+        ]);
+
+        if ($won) {
+            Transaction::create([
+                'user_id' => $user->id,
+                'game_type' => DiceGame::class,
+                'game_id' => $game->id,
+                'type' => 'payout',
+                'amount' => $payout,
+                'balance_after' => $user->credits,
+            ]);
+        }
 
         return response()->json([
             'die_1' => $die1,
