@@ -454,11 +454,19 @@
 
         <div class="credit-display">
             <div>
-                <div class="label">Starting Balance</div>
-                <div style="display:flex;align-items:baseline;gap:10px;">
-                    <div class="amount">@auth{{ number_format(auth()->user()->credits) }}@else 1,000 @endauth</div>
-                    <div class="currency">CREDITS</div>
-                </div>
+                @auth
+                    <div class="label">{{ auth()->user()->name }}</div>
+                    <div style="display:flex;align-items:baseline;gap:10px;">
+                        <div class="amount">{{ number_format(auth()->user()->credits) }}</div>
+                        <div class="currency">CREDITS</div>
+                    </div>
+                @else
+                    <div class="label">Starting Balance</div>
+                    <div style="display:flex;align-items:baseline;gap:10px;">
+                        <div class="amount">1,000</div>
+                        <div class="currency">CREDITS</div>
+                    </div>
+                @endauth
             </div>
         </div>
     </section>
