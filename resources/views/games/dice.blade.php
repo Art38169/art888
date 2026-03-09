@@ -634,7 +634,7 @@
             <div class="credit-chip">
                 <div>
                     <div class="credit-label">Credits</div>
-                    <div class="credit-val" id="credits">1,000</div>
+                    <div class="credit-val" id="credits">{{ number_format(auth()->user()->credits) }}</div>
                 </div>
             </div>
         </div>
@@ -730,9 +730,10 @@
             6: [1, 2, 3, 5, 6, 7],
         };
 
-        let credits = 1000;
+        let credits = {{ auth()->user()->credits }};
         let selectedChoice = null;
         let isRolling = false;
+        const csrfToken = '{{ csrf_token() }}';
 
         (function() {
             showDie(document.getElementById('die1'), 3);
@@ -809,63 +810,76 @@
                 }
             }, 80);
 
-            const finalVal1 = Math.ceil(Math.random() * 6);
-            const finalVal2 = Math.ceil(Math.random() * 6);
-            const total = finalVal1 + finalVal2;
-
-            setTimeout(() => {
-                clearDice();
-                die1El.classList.remove('rolling');
-                die2El.classList.remove('rolling');
-                die1El.classList.add('landed');
-                die2El.classList.add('landed');
-
-                showDie(die1El, finalVal1);
-                showDie(die2El, finalVal2);
-
-                sumEl.textContent = total;
-                setTimeout(() => sumEl.classList.add('visible'), 100);
-
-                let outcome;
-                if (total < 7) outcome = 'under';
-                else if (total === 7) outcome = 'exact';
-                else outcome = 'over';
-
-                const won = outcome === selectedChoice;
-                const multiplier = selectedChoice === 'exact' ? 5 : 2;
-                const payout = won ? wager * multiplier : 0;
-
-                if (won) {
-                    credits += payout - wager;
-                } else {
-                    credits -= wager;
-                }
-                updateCredits();
-
-                const resultText = document.getElementById('resultText');
-                const resultDetail = document.getElementById('resultDetail');
-
-                if (won) {
-                    resultBanner.classList.add('win');
-                    resultText.textContent = `You Win +${payout.toLocaleString()}`;
-                    resultDetail.textContent = `Dice rolled ${finalVal1} + ${finalVal2} = ${total} — ${outcome === 'exact' ? 'Lucky Seven!' : outcome}`;
-                } else {
-                    resultBanner.classList.add('lose');
-                    resultText.textContent = `You Lose -${wager.toLocaleString()}`;
-                    resultDetail.textContent = `Dice rolled ${finalVal1} + ${finalVal2} = ${total} — ${outcome}`;
-                }
-                setTimeout(() => resultBanner.classList.add('visible'), 200);
-
-                addHistory(finalVal1, finalVal2, total, selectedChoice, won, won ? payout : -wager);
-
-                setTimeout(() => {
-                    die1El.classList.remove('landed');
-                    die2El.classList.remove('landed');
+            fetch('{{ route("games.dice.play") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ pick: selectedChoice, wager }),
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    clearInterval(flickerInterval);
+                    die1El.classList.remove('rolling');
+                    die2El.classList.remove('rolling');
                     isRolling = false;
                     rollBtn.disabled = false;
-                }, 500);
+                    alert(data.error);
+                    return;
+                }
 
-            }, 1200);
+                const { die_1, die_2, total, outcome, won, payout } = data;
+
+                setTimeout(() => {
+                    clearDice();
+                    die1El.classList.remove('rolling');
+                    die2El.classList.remove('rolling');
+                    die1El.classList.add('landed');
+                    die2El.classList.add('landed');
+
+                    showDie(die1El, die_1);
+                    showDie(die2El, die_2);
+
+                    sumEl.textContent = total;
+                    setTimeout(() => sumEl.classList.add('visible'), 100);
+
+                    credits = data.credits;
+                    updateCredits();
+
+                    const resultText = document.getElementById('resultText');
+                    const resultDetail = document.getElementById('resultDetail');
+
+                    if (won) {
+                        resultBanner.classList.add('win');
+                        resultText.textContent = `You Win +${payout.toLocaleString()}`;
+                        resultDetail.textContent = `Dice rolled ${die_1} + ${die_2} = ${total} — ${outcome === 'exact' ? 'Lucky Seven!' : outcome}`;
+                    } else {
+                        resultBanner.classList.add('lose');
+                        resultText.textContent = `You Lose -${wager.toLocaleString()}`;
+                        resultDetail.textContent = `Dice rolled ${die_1} + ${die_2} = ${total} — ${outcome}`;
+                    }
+                    setTimeout(() => resultBanner.classList.add('visible'), 200);
+
+                    addHistory(die_1, die_2, total, selectedChoice, won, won ? payout : -wager);
+
+                    setTimeout(() => {
+                        die1El.classList.remove('landed');
+                        die2El.classList.remove('landed');
+                        isRolling = false;
+                        rollBtn.disabled = false;
+                    }, 500);
+                }, 800);
+            })
+            .catch(() => {
+                clearInterval(flickerInterval);
+                die1El.classList.remove('rolling');
+                die2El.classList.remove('rolling');
+                isRolling = false;
+                rollBtn.disabled = false;
+            });
         }
 
         function addHistory(d1, d2, total, bet, won, amount) {
