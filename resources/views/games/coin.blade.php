@@ -657,7 +657,7 @@
             <div class="credit-chip">
                 <div>
                     <div class="credit-label">Credits</div>
-                    <div class="credit-val" id="credits">1,000</div>
+                    <div class="credit-val" id="credits">{{ number_format(auth()->user()->credits) }}</div>
                 </div>
             </div>
         </div>
@@ -732,9 +732,10 @@
     </div>
 
     <script>
-        let credits = 1000;
+        let credits = {{ auth()->user()->credits }};
         let selectedChoice = null;
         let isFlipping = false;
+        const csrfToken = '{{ csrf_token() }}';
 
         (function() {
             const pick = new URLSearchParams(window.location.search).get('pick');
@@ -776,73 +777,83 @@
             flipLabel.classList.remove('visible');
 
             const coinEl = document.getElementById('coin');
-            const outcome = Math.random() < 0.5 ? 'heads' : 'tails';
 
-            coinEl.classList.remove('show-heads', 'show-tails', 'flipping');
-            coinEl.style.transform = 'rotateY(0deg)';
-
-            void coinEl.offsetWidth;
-
-            const totalRotation = 2880 + (outcome === 'tails' ? 180 : 0);
-            coinEl.style.setProperty('--final-rotation', totalRotation + 'deg');
-
-            coinEl.style.animation = 'none';
-            void coinEl.offsetWidth;
-
-            coinEl.style.transition = 'none';
-            coinEl.style.transform = 'rotateY(0deg) translateY(0)';
-
-            void coinEl.offsetWidth;
-
-            coinEl.style.transition = 'transform 1.8s cubic-bezier(0.2, 0, 0.1, 1)';
-            coinEl.style.transform = `rotateY(${totalRotation}deg) translateY(0)`;
-
-            let bouncePhase = 0;
-            const startTime = performance.now();
-
-            function animateBounce(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / 1800, 1);
-
-                let yOffset = 0;
-                if (progress < 0.35) {
-                    yOffset = -130 * Math.sin(progress / 0.35 * Math.PI);
-                } else if (progress < 0.65) {
-                    const subP = (progress - 0.35) / 0.3;
-                    yOffset = -40 * Math.sin(subP * Math.PI);
-                } else if (progress < 0.85) {
-                    const subP = (progress - 0.65) / 0.2;
-                    yOffset = -12 * Math.sin(subP * Math.PI);
+            fetch('{{ route("games.coin.play") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ pick: selectedChoice, wager }),
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    isFlipping = false;
+                    flipBtn.disabled = false;
+                    alert(data.error);
+                    return;
                 }
 
-                const currentRotation = totalRotation * progress;
+                const outcome = data.outcome;
+
+                coinEl.classList.remove('show-heads', 'show-tails', 'flipping');
+                coinEl.style.transform = 'rotateY(0deg)';
+                void coinEl.offsetWidth;
+
+                const totalRotation = 2880 + (outcome === 'tails' ? 180 : 0);
+
+                coinEl.style.animation = 'none';
+                void coinEl.offsetWidth;
                 coinEl.style.transition = 'none';
-                coinEl.style.transform = `rotateY(${currentRotation}deg) translateY(${yOffset}px)`;
+                coinEl.style.transform = 'rotateY(0deg) translateY(0)';
+                void coinEl.offsetWidth;
 
-                if (progress < 1) {
-                    requestAnimationFrame(animateBounce);
-                } else {
-                    coinEl.style.transform = `rotateY(${totalRotation}deg) translateY(0)`;
-                    onFlipComplete(outcome, wager);
+                const startTime = performance.now();
+
+                function animateBounce(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / 1800, 1);
+
+                    let yOffset = 0;
+                    if (progress < 0.35) {
+                        yOffset = -130 * Math.sin(progress / 0.35 * Math.PI);
+                    } else if (progress < 0.65) {
+                        const subP = (progress - 0.35) / 0.3;
+                        yOffset = -40 * Math.sin(subP * Math.PI);
+                    } else if (progress < 0.85) {
+                        const subP = (progress - 0.65) / 0.2;
+                        yOffset = -12 * Math.sin(subP * Math.PI);
+                    }
+
+                    const currentRotation = totalRotation * progress;
+                    coinEl.style.transition = 'none';
+                    coinEl.style.transform = `rotateY(${currentRotation}deg) translateY(${yOffset}px)`;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateBounce);
+                    } else {
+                        coinEl.style.transform = `rotateY(${totalRotation}deg) translateY(0)`;
+                        credits = data.credits;
+                        onFlipComplete(data.outcome, data.wager, data.won, data.payout, data.credits);
+                    }
                 }
-            }
 
-            requestAnimationFrame(animateBounce);
+                requestAnimationFrame(animateBounce);
+            })
+            .catch(() => {
+                isFlipping = false;
+                flipBtn.disabled = false;
+            });
         }
 
-        function onFlipComplete(outcome, wager) {
+        function onFlipComplete(outcome, wager, won, payout, serverCredits) {
             const flipLabel = document.getElementById('flipResultText');
             flipLabel.textContent = outcome === 'heads' ? 'Heads' : 'Tails';
             setTimeout(() => flipLabel.classList.add('visible'), 100);
 
-            const won = outcome === selectedChoice;
-            const payout = wager * 2;
-
-            if (won) {
-                credits += payout - wager;
-            } else {
-                credits -= wager;
-            }
+            credits = serverCredits;
             updateCredits();
 
             const resultBanner = document.getElementById('resultBanner');
