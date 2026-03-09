@@ -654,12 +654,12 @@
         </a>
         <a href="{{ route('home') }}" class="nav-brand"><span>ART</span>888</a>
         <div class="nav-right">
-            <div class="credit-chip">
+            <a href="{{ route('user.profile') }}" class="credit-chip" style="text-decoration:none;color:inherit;">
                 <div>
                     <div class="credit-label">Credits</div>
                     <div class="credit-val" id="credits">{{ number_format(auth()->user()->credits) }}</div>
                 </div>
-            </div>
+            </a>
         </div>
     </nav>
 
