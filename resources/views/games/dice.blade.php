@@ -684,15 +684,15 @@
             <div class="bet-label">Your Prediction</div>
             <div class="choice-group">
                 <button class="choice-btn" data-choice="under" onclick="selectChoice(this)">
-                    &lt; 7 <span style="opacity:0.5;">(&times;2)</span>
+                    &lt; 7 <span style="opacity:0.5; margin-left:8px;">( &times; 2 )</span>
                     <span class="choice-label">Under</span>
                 </button>
                 <button class="choice-btn" data-choice="exact" onclick="selectChoice(this)">
-                    = 7 <span style="opacity:0.5;">(&times;5)</span>
+                    = 7 <span style="opacity:0.5; margin-left:8px;">( &times; 5 )</span>
                     <span class="choice-label">Lucky Seven</span>
                 </button>
                 <button class="choice-btn" data-choice="over" onclick="selectChoice(this)">
-                    &gt; 7 <span style="opacity:0.5;">(&times;2)</span>
+                    &gt; 7 <span style="opacity:0.5; margin-left:8px;">( &times; 2 )</span>
                     <span class="choice-label">Over</span>
                 </button>
             </div>
