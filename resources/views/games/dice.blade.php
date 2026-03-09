@@ -734,6 +734,7 @@
         let selectedChoice = null;
         let isRolling = false;
         const csrfToken = '{{ csrf_token() }}';
+        let pipGeneration = 0;
 
         (function() {
             showDie(document.getElementById('die1'), 3);
@@ -761,18 +762,26 @@
             document.getElementById('wagerInput').value = val;
         }
 
-        function showDie(dieEl, value) {
+        function showDie(dieEl, value, instant = false) {
             const pips = dieEl.querySelectorAll('.pip');
             pips.forEach(p => p.classList.remove('show'));
             const activePips = pipMap[value];
-            activePips.forEach((idx, i) => {
-                setTimeout(() => {
-                    pips[idx - 1].classList.add('show');
-                }, i * 40);
-            });
+            if (instant) {
+                activePips.forEach(idx => pips[idx - 1].classList.add('show'));
+            } else {
+                const gen = pipGeneration;
+                activePips.forEach((idx, i) => {
+                    setTimeout(() => {
+                        if (gen === pipGeneration) {
+                            pips[idx - 1].classList.add('show');
+                        }
+                    }, i * 40);
+                });
+            }
         }
 
         function clearDice() {
+            pipGeneration++;
             document.querySelectorAll('.pip').forEach(p => p.classList.remove('show'));
         }
 
@@ -802,8 +811,8 @@
             let flickerCount = 0;
             const flickerInterval = setInterval(() => {
                 clearDice();
-                showDie(die1El, Math.ceil(Math.random() * 6));
-                showDie(die2El, Math.ceil(Math.random() * 6));
+                showDie(die1El, Math.ceil(Math.random() * 6), true);
+                showDie(die2El, Math.ceil(Math.random() * 6), true);
                 flickerCount++;
                 if (flickerCount > 12) {
                     clearInterval(flickerInterval);
@@ -834,14 +843,15 @@
                 const { die_1, die_2, total, outcome, won, payout } = data;
 
                 setTimeout(() => {
+                    clearInterval(flickerInterval);
                     clearDice();
                     die1El.classList.remove('rolling');
                     die2El.classList.remove('rolling');
                     die1El.classList.add('landed');
                     die2El.classList.add('landed');
 
-                    showDie(die1El, die_1);
-                    showDie(die2El, die_2);
+                    showDie(die1El, die_1, true);
+                    showDie(die2El, die_2, true);
 
                     sumEl.textContent = total;
                     setTimeout(() => sumEl.classList.add('visible'), 100);
